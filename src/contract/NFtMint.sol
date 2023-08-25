@@ -8,7 +8,7 @@ contract NftMint is ERC721URIStorage,Ownable{
     constructor()ERC721("ZeezNft","ZZNFT"){
 
     }
-    function mint(address _to,string memory _tokenUri) public onlyOwner{
+    function mint(address _to,string memory _tokenUri) public onlyOwner {
 _mint(_to,tokenId);
 _setTokenURI(tokenId,_tokenUri);
         tokenId+=1;
