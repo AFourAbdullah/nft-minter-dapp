@@ -53,93 +53,94 @@ const ResponsiveForm = () => {
   };
 
   return (
-    <div className="flex justify-center items-center relative">
+    <>
       {tokenUri !== "" && (
-        <h4 className="absolute top-0 left-0 text-violet-950 text-lg">
+        <h4 className="</div> top-0 left-0 text-violet-950 text-lg text-center mb-3">
           Token Uri is :{tokenUri}
         </h4>
       )}
       {uploadMessage && (
-        <h4 className="absolute top-0 left-0 text-violet-950 text-lg">
+        <h4 className="</div> top-0 left-0 text-violet-950 text-lg text-center mb-3">
           Uploading to ipfs please wait
         </h4>
       )}
-
-      <form
-        className="w-full max-w-lg p-6 bg-white rounded shadow-md"
-        onSubmit={handleSubmit}
-      >
-        <div className="mb-4">
-          <label
-            htmlFor="recipient"
-            className="block text-gray-700 font-medium mb-2"
-          >
-            Name Of The NFT
-          </label>
-          <input
-            type="text"
-            id="recipient"
-            className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500"
-            value={name}
-            onChange={(e) => setname(e.target.value)}
-          />
-        </div>
-        <div className="mb-4">
-          <label
-            htmlFor="recipient"
-            className="block text-gray-700 font-medium mb-2"
-          >
-            Description
-          </label>
-          <input
-            type="text"
-            id="recipient"
-            className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500"
-            value={description}
-            onChange={(e) => setdescription(e.target.value)}
-          />
-        </div>
-
-        <div className="mb-4">
-          <label
-            htmlFor="image"
-            className="block text-gray-700 font-medium mb-2"
-          >
-            Image Upload
-          </label>
-          <input
-            type="file"
-            id="image"
-            accept="image/*"
-            className="hidden"
-            onChange={handleImageChange}
-          />
-          <label
-            htmlFor="image"
-            className="w-full px-4 py-2 border rounded-lg cursor-pointer bg-blue-500 text-white hover:bg-blue-600 flex items-center justify-center"
-          >
-            Upload Image
-          </label>
-        </div>
-        {image && (
-          <div className="mb-4 flex items-center justify-center">
-            <img
-              src={image}
-              alt="Uploaded"
-              className="w-[80%] h-[170px] object-cover"
+      <div className="flex justify-center items-center relative">
+        <form
+          className="w-full max-w-lg p-6 bg-white rounded shadow-md"
+          onSubmit={handleSubmit}
+        >
+          <div className="mb-4">
+            <label
+              htmlFor="recipient"
+              className="block text-gray-700 font-medium mb-2"
+            >
+              Name Of The NFT
+            </label>
+            <input
+              type="text"
+              id="recipient"
+              className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500"
+              value={name}
+              onChange={(e) => setname(e.target.value)}
             />
           </div>
-        )}
-        <div>
-          <button
-            type="submit"
-            className="w-full px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
-          >
-            Submit
-          </button>
-        </div>
-      </form>
-    </div>
+          <div className="mb-4">
+            <label
+              htmlFor="recipient"
+              className="block text-gray-700 font-medium mb-2"
+            >
+              Description
+            </label>
+            <input
+              type="text"
+              id="recipient"
+              className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500"
+              value={description}
+              onChange={(e) => setdescription(e.target.value)}
+            />
+          </div>
+
+          <div className="mb-4">
+            <label
+              htmlFor="image"
+              className="block text-gray-700 font-medium mb-2"
+            >
+              Image Upload
+            </label>
+            <input
+              type="file"
+              id="image"
+              accept="image/*"
+              className="hidden"
+              onChange={handleImageChange}
+            />
+            <label
+              htmlFor="image"
+              className="w-full px-4 py-2 border rounded-lg cursor-pointer bg-blue-500 text-white hover:bg-blue-600 flex items-center justify-center"
+            >
+              Upload Image
+            </label>
+          </div>
+          {image && (
+            <div className="mb-4 flex items-center justify-center">
+              <img
+                src={image}
+                alt="Uploaded"
+                className="w-[80%] h-[170px] object-cover"
+              />
+            </div>
+          )}
+          <div>
+            <button
+              type="submit"
+              className="w-full px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
+            >
+              Submit
+            </button>
+          </div>
+        </form>
+      </div>
+    </>
   );
 };
 
