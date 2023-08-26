@@ -1,21 +1,21 @@
 import React, { useState } from "react";
-import { uploadFileToIPFS } from "../utils/UploadtoIpfs";
+import { uploadFileToIPFS, uploadMetadata } from "../utils/UploadtoIpfs";
+import axios from "axios";
 
 const ResponsiveForm = () => {
   const [recipient, setRecipient] = useState("");
   const [name, setname] = useState("");
   const [description, setdescription] = useState("");
   const [tokenUri, settokenUri] = useState("");
+  const [ImageUri, setImageUri] = useState("");
   const [image, setImage] = useState(null);
   const [uploadMessage, setuploadMessage] = useState(false);
 
-  const handleRecipientChange = (e) => {
-    setRecipient(e.target.value);
-  };
+  const JWT = `Bearer ${import.meta.env.VITE_JWT}`;
 
   const handleImageChange = (e) => {
     const selectedImage = e.target.files[0];
-    setImage(URL.createObjectURL(selectedImage));
+    setImage(selectedImage);
   };
 
   const handleSubmit = async (e) => {
@@ -23,26 +23,33 @@ const ResponsiveForm = () => {
     if (!name || !image || !description) {
       return alert("all fields are mandatory");
     }
+    setuploadMessage(true);
 
-    var file = image;
-    //check for file extension
     try {
-      //upload the file to IPFS
-      setuploadMessage(true);
+      // Upload the image to IPFS
+      const imageResponse = await uploadFileToIPFS(image);
+      if (imageResponse) {
+        const imageUri = imageResponse.data.IpfsHash;
 
-      const response = await uploadFileToIPFS(file);
-      if (response.success === true) {
-        enableButton();
-        updateMessage("");
-        console.log("Uploaded image to Pinata: ", response.pinataURL);
-        settokenUri(pinataResponse.pinataUrl);
+        // Upload the metadata JSON to IPFS
+        const metadata = {
+          name: name,
+          description: description,
+          external_url: "https://pinata.cloud", // You can set the IPFS URL of the image as the external_url
+          image: imageUri,
+        };
+
+        const metadataResponse = await uploadMetadata(metadata);
+
+        if (metadataResponse.success) {
+          settokenUri(metadataResponse.pinataURL);
+        }
       }
-    } catch (e) {
-      console.log("Error during file upload", e);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setuploadMessage(false);
     }
-    setuploadMessage(false);
-
-    console.log("URI is", tokenUri);
   };
 
   return (
