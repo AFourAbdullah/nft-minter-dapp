@@ -15,11 +15,6 @@ const Main = () => {
   return (
     <div className="w-screen flex items-center justify-around ">
       <Home />
-      <Lottie
-        animationData={animationData}
-        width={100}
-        options={defaultOptions}
-      />
     </div>
   );
 };

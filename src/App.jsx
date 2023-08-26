@@ -8,7 +8,7 @@ import Main from "./components/Main";
 const App = () => {
   return (
     <ThirdwebProvider activeChain={Sepolia}>
-      <div>
+      <div className="w-screen overflow-x-hidden">
         <Header />
         <Main />
       </div>

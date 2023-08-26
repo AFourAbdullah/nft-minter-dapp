@@ -3,22 +3,22 @@ const secret = import.meta.env.VITE_API_Secret;
 const JWT = `Bearer ${import.meta.env.VITE_JWT}`;
 import axios from "axios";
 
-export const uploadMetadata = async (
+export const uploadMetadata = async ({
   name,
   description,
   external_url,
-  ImageUri
-) => {
+  image,
+}) => {
   try {
     const data = JSON.stringify({
       pinataContent: {
-        name: `${name}`,
-        description: `${description}`,
-        external_url: `${external_url}`,
-        image: `ipfs://${CID}`,
+        name: name, // Use the 'name' provided
+        description: description,
+        external_url: external_url,
+        image: `ipfs://${image}`, // Use the 'imageUri' directly
       },
       pinataMetadata: {
-        name: `${name}`,
+        name: name, // Use the 'name' provided
       },
     });
 
@@ -26,7 +26,7 @@ export const uploadMetadata = async (
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${process.env.PINATA_JWT}`,
+        Authorization: JWT,
       },
       body: data,
     });
@@ -39,7 +39,7 @@ export const uploadMetadata = async (
   }
 };
 
-export const uploadFileToIPFS = async (file) => {
+export const uploadFileToIPFS = async (file, name) => {
   const formData = new FormData();
 
   formData.append("file", file);
@@ -67,6 +67,7 @@ export const uploadFileToIPFS = async (file) => {
       }
     );
     console.log("pin res issss", res.data);
+    return res;
   } catch (error) {
     console.log(error);
   }

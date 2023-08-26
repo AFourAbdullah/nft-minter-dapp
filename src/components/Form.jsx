@@ -27,10 +27,10 @@ const ResponsiveForm = () => {
 
     try {
       // Upload the image to IPFS
-      const imageResponse = await uploadFileToIPFS(image);
-      if (imageResponse) {
+      const imageResponse = await uploadFileToIPFS(image, name);
+      if (imageResponse.data && imageResponse.data.IpfsHash) {
         const imageUri = imageResponse.data.IpfsHash;
-
+        console.log("hhhhh", imageUri);
         // Upload the metadata JSON to IPFS
         const metadata = {
           name: name,
@@ -41,8 +41,8 @@ const ResponsiveForm = () => {
 
         const metadataResponse = await uploadMetadata(metadata);
 
-        if (metadataResponse.success) {
-          settokenUri(metadataResponse.pinataURL);
+        if (metadataResponse) {
+          settokenUri(metadataResponse);
         }
       }
     } catch (error) {
