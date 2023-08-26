@@ -9,6 +9,7 @@ const ResponsiveForm = () => {
   const [tokenUri, settokenUri] = useState("");
   const [ImageUri, setImageUri] = useState("");
   const [image, setImage] = useState(null);
+  const [imageInVIew, setImageInVIew] = useState(null);
   const [uploadMessage, setuploadMessage] = useState(false);
 
   const JWT = `Bearer ${import.meta.env.VITE_JWT}`;
@@ -16,6 +17,7 @@ const ResponsiveForm = () => {
   const handleImageChange = (e) => {
     const selectedImage = e.target.files[0];
     setImage(selectedImage);
+    setImageInVIew(URL.createObjectURL(selectedImage));
   };
 
   const handleSubmit = async (e) => {
@@ -124,7 +126,7 @@ const ResponsiveForm = () => {
           {image && (
             <div className="mb-4 flex items-center justify-center">
               <img
-                src={image}
+                src={imageInVIew}
                 alt="Uploaded"
                 className="w-[80%] h-[170px] object-cover"
               />
